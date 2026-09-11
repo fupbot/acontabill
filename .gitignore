@@ -1,0 +1,46 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+build/
+.expo/
+.expo-shared/
+web-build/
+
+# Env / secrets
+.env
+.env.local
+.env.*.local
+
+# Local databases
+*.sqlite
+*.sqlite3
+*.db
+
+# Logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/*
+!.vscode/extensions.json
+
+# TypeScript
+*.tsbuildinfo
+
+# Test coverage
+coverage/
+
+# Expo / React Native
+*.jks
+*.p8
+*.p12
+*.key
+*.mobileprovision
+*.orig.*
+ios/
+android/

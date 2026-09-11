@@ -1,0 +1,19 @@
+{
+  "name": "@acontabill/shared-core",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Shared algorithms (split math, debt simplification, categorization, installment rounding) used unchanged by mobile and backend.",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "tsc -b",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "lint": "eslint src --max-warnings 0"
+  },
+  "devDependencies": {
+    "typescript": "^5.7.2",
+    "vitest": "^2.1.8"
+  }
+}

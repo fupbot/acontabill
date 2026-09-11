@@ -158,8 +158,11 @@ with Splid's offline-first design — plus installments, which is unclaimed terr
   imported unchanged by both the mobile app and the backend — one implementation,
   not two guarded by tests.
 - **Sync/backup server (desktop):** Node.js + TypeScript (Express or Fastify);
-  local SQLite (or Postgres for hosted tier) via **Prisma or Drizzle** for
-  schema/migrations; dependency management via **pnpm**
+  local SQLite (or Postgres for hosted tier) via **Drizzle** for schema/migrations
+  — chosen over Prisma because Drizzle has no separate native query-engine binary,
+  which avoids a packaging headache for the single-executable Windows installer
+  (§8 desktop packaging) and keeps migrations plain-SQL, closer in spirit to
+  WatermelonDB's hand-rolled mobile migrations; dependency management via **pnpm**
 - **Mobile client:** **React Native (Expo)** — offline-first local SQLite via
   **WatermelonDB**, purpose-built for "local-first app with sync," which is this
   app's core principle
@@ -312,6 +315,9 @@ All decisions needed to start implementation have been made:
   mDNS/SQLCipher/E2EE
 - [x] Mobile framework: **React Native (Expo)**, offline SQLite via
   **WatermelonDB**
+- [x] Backend ORM: **Drizzle** over Prisma — no native query-engine binary to
+  bundle, which fits the single-executable Windows installer packaging goal;
+  plain-SQL migrations also match WatermelonDB's manual migration style
 - [x] App name: **"A conta, Bill!"** (repo: `acontabill`)
 - [x] E2EE: **deferred to the premium/hosted tier**; free/LAN tier uses TLS +
   at-rest encryption only

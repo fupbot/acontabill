@@ -1,0 +1,9 @@
+node_modules
+dist
+.expo
+apps/mobile/android
+apps/mobile/ios
+pnpm-lock.yaml
+
+# Hand-authored prose docs — not code, don't want reformatting noise on diffs
+*.md
