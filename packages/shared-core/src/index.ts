@@ -1,6 +1,17 @@
+export type { BalancesByCurrency } from "./balances/calculate-balances";
+export { calculateBalances } from "./balances/calculate-balances";
+export type { BalancePosting, ExpenseForBalance, SettlementForBalance } from "./balances/postings";
+export { postingsForExpense, postingsForSettlement } from "./balances/postings";
+export type { SimplifiedDebt } from "./balances/simplify-debts";
+export { simplifyDebts } from "./balances/simplify-debts";
 export { DEFAULT_CATEGORY_NAMES } from "./categorization/default-categories";
 export type { GroupRole } from "./permissions/roles";
 export { canEditOrDeleteExpense, canManageCategories, canRemoveMember } from "./permissions/roles";
 export { splitAmountEqually } from "./splitting/equal-split";
+export { splitExpenseByExactAmounts } from "./splitting/exact-split";
 export type { ExpenseSplitResult } from "./splitting/expense-splits";
 export { splitExpenseEqually } from "./splitting/expense-splits";
+export type { PercentageSplitInput } from "./splitting/percentage-split";
+export { splitExpenseByPercentage } from "./splitting/percentage-split";
+export type { ShareSplitInput } from "./splitting/shares-split";
+export { splitExpenseByShares } from "./splitting/shares-split";

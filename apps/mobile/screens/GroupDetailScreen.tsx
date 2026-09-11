@@ -57,12 +57,14 @@ export function GroupDetailScreen({ route, navigation }: Props) {
         </Pressable>
       </View>
 
-      <Pressable
-        style={styles.linkRow}
-        onPress={() => navigation.navigate("Categories", { groupId })}
-      >
-        <Text style={styles.linkText}>Manage categories →</Text>
-      </Pressable>
+      <View style={styles.linksRow}>
+        <Pressable onPress={() => navigation.navigate("Categories", { groupId })}>
+          <Text style={styles.linkText}>Manage categories →</Text>
+        </Pressable>
+        <Pressable onPress={() => navigation.navigate("SettleUp", { groupId })}>
+          <Text style={styles.linkText}>Settle up →</Text>
+        </Pressable>
+      </View>
 
       <View style={styles.expensesHeader}>
         <Text style={styles.sectionTitle}>Expenses</Text>
@@ -87,6 +89,12 @@ export function GroupDetailScreen({ route, navigation }: Props) {
             <Text style={styles.expenseAmount}>
               {formatAmount(item.amountCents, item.currency)}
             </Text>
+            <Pressable
+              onPress={() => navigation.navigate("AddExpense", { groupId, expenseId: item.id })}
+              hitSlop={8}
+            >
+              <Text style={styles.linkText}>Edit</Text>
+            </Pressable>
             <Pressable onPress={() => deleteExpense(item.id)} hitSlop={8}>
               <Text style={styles.deleteText}>Delete</Text>
             </Pressable>
@@ -152,7 +160,9 @@ const styles = StyleSheet.create({
     color: "#0a0a0a",
     fontWeight: "600",
   },
-  linkRow: {
+  linksRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
     marginBottom: theme.spacing(2),
   },
   linkText: {

@@ -68,9 +68,6 @@ export const expenses = sqliteTable("expenses", {
   paidByUserId: text("paid_by_user_id")
     .notNull()
     .references(() => users.id),
-  // Only "equal" is implemented in Phase 2; percentage/exact/shares are
-  // Phase 3 (REQUIREMENTS.md §12). The column exists now so Phase 3 doesn't
-  // need a migration just to add it.
   splitType: text("split_type", { enum: ["equal", "percentage", "exact", "shares"] })
     .notNull()
     .default("equal"),
@@ -86,4 +83,23 @@ export const expenseSplits = sqliteTable("expense_splits", {
     .notNull()
     .references(() => users.id),
   amountCents: integer("amount_cents").notNull(),
+});
+
+// A direct payment from one member to another to settle up part (or all) of
+// what balances/simplify-debts.ts says they owe. Always a single currency,
+// matching the debt it settles (REQUIREMENTS.md §3).
+export const settlements = sqliteTable("settlements", {
+  id: text("id").primaryKey(),
+  groupId: text("group_id")
+    .notNull()
+    .references(() => groups.id),
+  currency: text("currency").notNull(),
+  fromUserId: text("from_user_id")
+    .notNull()
+    .references(() => users.id),
+  toUserId: text("to_user_id")
+    .notNull()
+    .references(() => users.id),
+  amountCents: integer("amount_cents").notNull(),
+  createdAt: integer("created_at", { mode: "timestamp" }).notNull(),
 });
