@@ -1,9 +1,10 @@
 import { describe, expect, it } from "vitest";
 
-import { SHARED_CORE_PACKAGE_NAME } from "./index";
+import { DEFAULT_CATEGORY_NAMES, splitExpenseEqually } from "./index";
 
-describe("shared-core package scaffold", () => {
-  it("exposes its package name as a sanity check for the build/test pipeline", () => {
-    expect(SHARED_CORE_PACKAGE_NAME).toBe("@acontabill/shared-core");
+describe("shared-core public exports", () => {
+  it("re-exports the pieces mobile/backend are expected to import", () => {
+    expect(DEFAULT_CATEGORY_NAMES.length).toBeGreaterThan(0);
+    expect(splitExpenseEqually(100, ["a"])).toEqual([{ userId: "a", amountCents: 100 }]);
   });
 });

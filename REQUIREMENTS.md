@@ -164,8 +164,10 @@ with Splid's offline-first design — plus installments, which is unclaimed terr
   (§8 desktop packaging) and keeps migrations plain-SQL, closer in spirit to
   WatermelonDB's hand-rolled mobile migrations; dependency management via **pnpm**
 - **Mobile client:** **React Native (Expo)** — offline-first local SQLite via
-  **WatermelonDB**, purpose-built for "local-first app with sync," which is this
-  app's core principle
+  **Drizzle ORM + `expo-sqlite`**, the same ORM used by the backend (§8), so the
+  whole stack shares one schema/query tool instead of two. Reactive UI updates
+  use Drizzle's `useLiveQuery` hook. (Originally WatermelonDB; switched during
+  Phase 2 scaffolding — see §13 decisions log for why.)
 - **Target platforms (v1):** Android + iOS (Expo builds both from one codebase;
   iOS builds/signing require a Mac + Apple developer account, or Expo's cloud
   build service). Known trade-off vs. Flutter: RN has occasional native-module
@@ -314,10 +316,19 @@ All decisions needed to start implementation have been made:
   code sharing of the core algorithms and more mature Node ecosystem for
   mDNS/SQLCipher/E2EE
 - [x] Mobile framework: **React Native (Expo)**, offline SQLite via
-  **WatermelonDB**
+  **Drizzle ORM + `expo-sqlite`** — changed from the original WatermelonDB
+  choice during Phase 2 scaffolding: WatermelonDB's last commit was August
+  2025 and it predates React Native's New Architecture (Fabric/TurboModules),
+  which is the default on the RN version this app scaffolded on; community
+  reports describe build failures and runtime instability running it there.
+  `expo-sqlite` is Expo's own actively-maintained first-party module with
+  confirmed New Architecture support, and Drizzle ships a `useLiveQuery` hook
+  for reactive UI, recovering WatermelonDB's main advantage. Net effect: one
+  ORM (Drizzle) across mobile and backend instead of two different schema
+  tools — simpler than the original plan, not just a fallback
 - [x] Backend ORM: **Drizzle** over Prisma — no native query-engine binary to
   bundle, which fits the single-executable Windows installer packaging goal;
-  plain-SQL migrations also match WatermelonDB's manual migration style
+  also now shared with the mobile client (see mobile framework decision above)
 - [x] App name: **"A conta, Bill!"** (repo: `acontabill`)
 - [x] E2EE: **deferred to the premium/hosted tier**; free/LAN tier uses TLS +
   at-rest encryption only
